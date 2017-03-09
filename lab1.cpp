@@ -17,14 +17,13 @@ BOOL CALLBACK DialogFun(HWND hwnd, UINT message,
 		case IDCANCEL:
 			EndDialog(hwnd, LOWORD(wParam));
 			return TRUE;
-		case IDC_BUTTON1: // Обработка сообщения от кнопки sin
-		case IDC_BUTTON2: // Обработка сообщения от кнопки cos
-			SendDlgItemMessage(hwnd, IDC_EDIT1, WM_GETTEXT, 63, (LPARAM)Text); 
-			//Получить текст из текстового поля и записать в массив Text
+		case IDC_BUTTON1: 
+		case IDC_BUTTON2: 
+			SendDlgItemMessage(hwnd, IDC_EDIT1, WM_GETTEXT, 63, (LPARAM)Text); 		
 				if (sscanf_s(Text, "%lf", &x)<1)
 				{
-					MessageBox(hwnd, "Неверный формат первого операнда",
-						"Ошибка формата", MB_OK | MB_ICONHAND);
+					MessageBox(hwnd, "ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЇГҐГ°ГўГ®ГЈГ® Г®ГЇГҐГ°Г Г­Г¤Г ",
+						"ГЋГёГЁГЎГЄГ  ГґГ®Г°Г¬Г ГІГ ", MB_OK | MB_ICONHAND);
 					return TRUE;
 				}
 		
@@ -32,12 +31,11 @@ BOOL CALLBACK DialogFun(HWND hwnd, UINT message,
 			if (LOWORD(wParam) == IDC_BUTTON1) { y = sin(x*pi/180); func[0] = 's'; func[1] = 'i'; func[2] = 'n'; }
 			if (LOWORD(wParam) == IDC_BUTTON2) { y = cos(x*pi/180); func[0] = 'c'; func[1] = 'o'; func[2] = 's'; }
 			sprintf(Text, "%f", y);
-			SendDlgItemMessage(hwnd, IDC_EDIT2, WM_SETTEXT, 0, (LPARAM)Text); // 
-			//Помещаем текст из массива в текстовое поле
+			SendDlgItemMessage(hwnd, IDC_EDIT2, WM_SETTEXT, 0, (LPARAM)Text);  		
 				sprintf_s(Text, "%c%c%c(%d) = %f", func[0], func[1], func[2], int(x), y);
 			SendDlgItemMessage(hwnd, IDC_LIST1, LB_ADDSTRING, 0, (LPARAM)Text);
 			return TRUE;
-		case IDC_BUTTON3: // Обработка сообщения от кнопки "Очистить список"
+		case IDC_BUTTON3: 
 			SendDlgItemMessage(hwnd, IDC_LIST1, LB_RESETCONTENT, 0, 0);
 			return TRUE;
 		}
@@ -49,7 +47,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	LPSTR lpCmdLine,
 	int  nCmdShow)
 {
-	// TODO: Place code here.
+	
 	DialogBox(hInstance, MAKEINTRESOURCE(IDD_DIALOG1), 0, DialogFun);
 	return 0;
 }
